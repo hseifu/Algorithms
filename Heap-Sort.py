@@ -69,6 +69,6 @@ plt.plot(n_1,t_1,'r-')
 plt.plot(n_2,t_2,'g-')
 
 plt.legend(['REGULAR MAX HEAP','BOTTOM UP HEAP'])
-pylab.savefig("results.png")
+pylab.savefig("results.png")#file name of data plots
 
 
