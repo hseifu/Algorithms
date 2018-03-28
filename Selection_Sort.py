@@ -1,7 +1,7 @@
 #! /usr/bin/env python3
 #Done by: Henok Seifu
 
-########################    ALGORITHMS AND DATA STRUCTURES     ########################     
+########################    ALGORITHMS AND DATA STRUCTURES     ##########################     
 import random
 import pylab
 import timeit
