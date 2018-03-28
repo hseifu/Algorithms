@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 import sys
 
 def fibonacci_nv(n):#subtract one when calling 
-    if n<2:
+    if n < 2:
         return n
     else:
         return fibonacci_nv(n-1)+fibonacci_nv(n-2)
