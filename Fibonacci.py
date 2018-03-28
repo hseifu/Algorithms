@@ -14,7 +14,7 @@ def fibonacci_nv(n):#subtract one when calling
     else:
         return fibonacci_nv(n-1)+fibonacci_nv(n-2)
 
-def fibonacci_bu(n):
+def fibonacci_bu(n):#bottom up method
     prev = 0
     cur = 1
     res = 0
@@ -24,7 +24,7 @@ def fibonacci_bu(n):
         cur = res
     return res
 
-def fibonacci_cf(n):
+def fibonacci_cf(n):#closed form
     a = 1
     for i in range(n):
         a = 1.61803398875*a
@@ -32,7 +32,7 @@ def fibonacci_cf(n):
 
 
 
-def fibonacci_ma(n):
+def fibonacci_ma(n):#matrix form 
     arr2 = [[1,1],[1,0]]
     arr1 = arr2
     if n==0:
