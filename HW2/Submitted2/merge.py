@@ -1,4 +1,4 @@
-    #! /usr/bin/env python3
+    gi#! /usr/bin/env python3
 import random
 import pylab
 import timeit
