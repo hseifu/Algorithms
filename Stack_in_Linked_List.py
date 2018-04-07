@@ -5,18 +5,14 @@ class Stack:
         def __init__(self, initData):
             self.data = initData
             self.next = None
-        def getData(self):
-            return self.data
-        def setData(self, newData):
-            self.data = newData
-        def getNext(self):
-            return self.next
-        def setNext(self, newNext):
-            self.next = newNext
+
+    #Constructor runs in constant time
     def __init__(self):
         self.__head = None
         self.__size = -1
-    def push(self,x):
+
+    #Push function runs in constant time
+    def push(self,x): 
         if self.head == None:
             self.head = x
             x.next = None
@@ -24,6 +20,8 @@ class Stack:
             x.next = self.head
             head = x
             size += 1
+    
+    #Pop function runs in constant time
     def pop(self):
         if size == -1:
             raise IndexError("Popping stack underflow")
@@ -38,6 +36,8 @@ class Stack:
             self.head = temp.next
             self.size -= 1
             return temp
+    
+    #Check if empty function runs in constant time
     def isEmpty(self):
         if size == -1:
             return True
