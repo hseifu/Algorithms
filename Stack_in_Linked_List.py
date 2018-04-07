@@ -1,49 +1,63 @@
 #! /usr/bin/env python3
-
-class Stack:
-    class StackNode:
+class StackNode:
         def __init__(self, initData):
             self.data = initData
             self.next = None
+class Stack:
+    
 
     #Constructor runs in constant time
     def __init__(self):
         self.__head = None
         self.__size = -1
 
-    #Push function runs in constant time
-    def push(self,x): 
-        if self.head == None:
-            self.head = x
-            x.next = None
-        else:
-            x.next = self.head
-            head = x
-            size += 1
-    
-    #Pop function runs in constant time
-    def pop(self):
-        if size == -1:
-            raise IndexError("Popping stack underflow")
-        elif size == 0:
-            temp = self.head
-            self.head = None 
-            self.size -= 1
-            return temp
-        else:
-            temp = self.head
-            del self.head
-            self.head = temp.next
-            self.size -= 1
-            return temp
-    
     #Check if empty function runs in constant time
     def isEmpty(self):
-        if size == -1:
+        if self.__size == -1:
             return True
         else:
             return False
+
+    #Push function runs in constant time
+    def push(self,data):
+        x = StackNode(data)
+        if self.__head == None:
+            self.__head = x
+            x.next = None
+        else:
+            x.next = self.__head
+            self.__head = x
+        self.__size += 1
+    
+    #Pop function runs in constant time
+    def pop(self):
+        if self.isEmpty():
+            raise IndexError("Popping stack underflow")
+        elif self.__size == 0:
+            temp = self.__head
+            self.__head = None 
+            self.__size -= 1
+            return temp.data
+        else:
+            temp = self.__head
+            del self.__head
+            self.__head = temp.next
+            self.__size -= 1
+            return temp.data
+    
+    
             
-
-
+def main():
+    S = Stack()
+    S.push(1)
+    S.push(2)
+    print(S.pop())
+    print(S.pop())
+    print(S.isEmpty())
+    try:
+        print(S.pop())
+    except ValueError as err:
+        print(err.args)
+    
+main()
         
