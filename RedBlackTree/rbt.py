@@ -194,14 +194,14 @@ class RedBlackTree:
             y = y.parent
         return y
 
-    def getMinimum():
+    def getMinimum(self):
         #return minimum node
         node = self
         while node.left is not None:
             node = node.left 
         return node
         
-    def getMaximum():
+    def getMaximum(self):
         #return max node
         node = self
         while node.right is not None:
@@ -217,6 +217,12 @@ class RedBlackTree:
             else:
                 x = x.right
         return x
-        
+
+    def preorder(self):
+        if self == None:
+            return
+        print(self.data)
+        self.left.preorder()
+        self.right.preorder()
 
 
