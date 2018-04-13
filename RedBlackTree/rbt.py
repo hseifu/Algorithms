@@ -25,8 +25,9 @@ class RedBlackTree:
             self.root = y
         elif node is node.parent.left:
             node.parent.left = y
-        else node.parent.right = y
-        y.left = x
+        else:
+            node.parent.right = y
+        y.left = node
         node.parent = y
         
     def _rotateRight_(self, node):                #Keeps RBT property even when implemented like a BST
@@ -39,9 +40,10 @@ class RedBlackTree:
             self.__root = y
         elif node is node.parent.right:
             node.parent.right = y
-        else node.parent.left = y
-        y.right = x
-        x.parent = y
+        else:
+            node.parent.left = y
+        y.right = node
+        node.parent = y
 
     def insert(self, val):
         z = Node(val)                             #create node to be added
@@ -55,15 +57,15 @@ class RedBlackTree:
                 x = x.right
         z.parent = y                              #parent of node to be added is the node pointed by the cursor
         if y == None:                             #if the cursor is still pointing to nil that means there was 
-            self.__root = z                       #no root node so assign new node as root node
+            self.__root = z                       #no root node so assign new node as root node                              
         elif z.data < y.data:                     #if the new data is less than the parent data then make it left
             y.left = z
         else:                                     #if not then make it right
             y.right = z
-        self.RB_insert_fixup(z)                   #then fixup your red and black tree
+        self.RB_insert_fixup(z)               #then fixup your red and black tree if grandparent exists
 
     def RB_insert_fixup(self, z):
-        while z.parent.color == Color.RED:
+        while z.parent is not None and z.parent.parent is not None and z.parent.color == Color.RED:
             if z.parent is z.parent.parent.left:  #check if parent is left or right child
                 y = z.parent.parent.right         #uncle is on the right of grand parent
                 if y.color is Color.RED:          #Case 1 uncle is red
@@ -80,7 +82,7 @@ class RedBlackTree:
                     self._rotateRight_(z.parent.parent)
             else:                                 
                 y = z.parent.parent.left            #uncle is on the left of grand parent
-                if y.color is Color.RED:            #Case 1 uncle is red
+                if y is not None and y.color is Color.RED:            #Case 1 uncle is red
                     z.parent.color = Color.BLACK
                     y.color = Color.BLACK
                     z.parent.parent.color = Color.RED
@@ -149,7 +151,7 @@ class RedBlackTree:
                         w = node.parent.right           #make sibling point to the black parent node with right child red
                     w.color = node.parent.color         #Case 4: (accepts changed version of case 3) sibling has right red child
                     node.parent.color = Color.BLACK     #Change sibling color to node parent color then change node parent color to black
-                    w.right.color = Color.Black         #Change right child of sibling's color to black
+                    w.right.color = Color.BLACK         #Change right child of sibling's color to black
                     self._rotateLeft_(node.parent)      #rotate left node's parent and make it sibling's child
                     x = self.__root                     #change which node to check for tree property
             else:                                       #Symmetric Case 2 when node is right a node
@@ -169,7 +171,7 @@ class RedBlackTree:
                         w = node.parent.left           
                     w.color = node.parent.color         
                     node.parent.color = Color.BLACK     
-                    w.left.color = Color.Black         
+                    w.left.color = Color.BLACK       
                     self._rotateRight_(node.parent)      
                     x = self.__root
         x.color = Color.BLACK
@@ -179,7 +181,7 @@ class RedBlackTree:
         if node.left is not None:
             return self.getMaximum(node.left)
         y = node.parent
-        while y is not None and x is y.left:
+        while y is not None and node is y.left:
             node = y
             y = y.parent
         return y
@@ -189,21 +191,19 @@ class RedBlackTree:
         if node.right is not None:
             return self.getMinimum(node.right)
         y = node.parent
-        while y is not None and x is y.right:
+        while y is not None and node is y.right:
             node = y
             y = y.parent
         return y
 
-    def getMinimum(self):
+    def getMinimum(self, node):
         #return minimum node
-        node = self
         while node.left is not None:
             node = node.left 
         return node
         
-    def getMaximum(self):
+    def getMaximum(self, node):
         #return max node
-        node = self
         while node.right is not None:
             node = node.right
         return node
@@ -218,11 +218,10 @@ class RedBlackTree:
                 x = x.right
         return x
 
-    def preorder(self):
-        if self == None:
-            return
-        print(self.data)
-        self.left.preorder()
-        self.right.preorder()
-
+def preorder(root_node):
+    if root_node == None:
+        return
+    print(root_node.data, root_node.color)
+    preorder(root_node.left)
+    preorder(root_node.right)
 
